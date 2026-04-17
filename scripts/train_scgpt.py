@@ -3,7 +3,7 @@
 =====================================================
 Usage:
     python kfold_scgpt.py --dataset hBone --mode baseline --cuda 3 --epochs 80
-    python kfold_scgpt.py --dataset MS    --mode ral     --cuda 4 --epochs 80
+    python train_scgpt.py --dataset MS    --mode cal     --cuda 0 --epochs 80
 
 Output:
     results/result_scgpt_{dataset}/{mode}/kfold_results.json   <- per-fold scores
@@ -364,7 +364,7 @@ def main():
 
         cal_loss_fn = None
         captured_attn = None
-        if args.mode in ('ral', 'mhcal', 'lora_mhcal', 'mhcal_adamw', 'mhcal_attn'):
+        if args.mode in ('cal', 'mhcal', 'lora_mhcal', 'mhcal_adamw', 'mhcal_attn'):
             cal_loss_fn = MultiHeadCALLoss(lambda_attn=args.lambda_attn, temperature=0.1).to(device)
             captured_attn = register_attn_hook(model)
         elif args.mode == 'mhcal_orth':

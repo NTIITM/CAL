@@ -3,7 +3,7 @@
 =========================================================
 Usage:
     python kfold_geneformer.py --dataset human_CD4 --mode baseline --cuda 2 --epochs 50
-    python kfold_geneformer.py --dataset human_CD4 --mode ral     --cuda 3 --epochs 50
+    python train_geneformer.py --dataset hBone --mode cal     --cuda 0 --epochs 50
 
 Controlled variables (identical to single-run CellClassfication.py):
     - LoRA: r=8, alpha=16, target_modules=["query","value"], dropout=0.1
@@ -213,8 +213,8 @@ def main():
         optimizer = torch.optim.AdamW(model.parameters(), lr=args.lr)
 
         cal_loss_fn = None
-        use_cal = (args.mode in ('ral', 'mhcal', 'mhcal_orth'))
-        if args.mode in ('ral', 'mhcal'):
+        use_cal = (args.mode in ('cal', 'mhcal', 'mhcal_orth'))
+        if args.mode in ('cal', 'mhcal'):
             cal_loss_fn = MultiHeadCALLoss(lambda_attn=args.lambda_attn, temperature=args.temperature).to(device)
         elif args.mode == 'mhcal_orth':
             cal_loss_fn = MultiHeadCALLoss(lambda_attn=args.lambda_attn, lambda_orth=args.lambda_orth, temperature=args.temperature).to(device)

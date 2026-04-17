@@ -1,7 +1,7 @@
 """
 Contrastive Attention Learning (CAL) for scGPT.
 
-Designed for discriminative classifiers (unlike RAL which needs generative sampling).
+Designed for discriminative classifiers.
 
 Core idea: The CLS token's attention distribution over genes should be
 cell-type-specific — same-type cells look at similar genes, different-type

@@ -3,7 +3,7 @@
 =====================================================
 Usage:
     python kfold_cellfm.py --dataset MS --mode baseline --cuda 0 --epochs 10
-    python kfold_cellfm.py --dataset MS --mode ral      --cuda 0 --epochs 10
+    python train_cellfm.py --dataset MS --mode cal      --cuda 0 --epochs 10
 
 Output:
     results/result_cellfm_{dataset}/{mode}/kfold_results.json   <- per-fold scores
@@ -43,7 +43,7 @@ def get_args():
     import argparse
     p = argparse.ArgumentParser()
     p.add_argument('--dataset',      type=str,   default='MS')
-    p.add_argument('--mode',         type=str,   default='baseline', choices=['baseline', 'ral', 'mhcal', 'mhcal_lora'])
+    p.add_argument('--mode',         type=str,   default='baseline', choices=['baseline', 'cal', 'mhcal', 'mhcal_lora'])
     p.add_argument('--cuda',         type=int,   default=0)
     p.add_argument('--lambda_attn',  type=float, default=0.5, help="CAL loss weight")
     p.add_argument('--epochs',       type=int,   default=10)
@@ -88,7 +88,7 @@ def train_epoch(model, loader, optimizer, scaler, criterion_cls, cal_loss_fn, de
                     # Multi-Head independent contrastive loss
                     cal_loss = cal_loss_fn(cls_weights, feat, None)
                 else:
-                    # Original RAL with head-averaging
+                    # Original CAL with head-averaging
                     attn_map = cls_weights.mean(dim=1)
                     cal_loss = cal_loss_fn(attn_map, feat, None)
             else:
@@ -293,7 +293,7 @@ def main():
             alpha = args.lambda_attn
         else:
             cal_loss_fn = CALLoss(lambda_attn=1.0, temperature=0.1, use_class_balanced_queue=False).to(device)
-            alpha = args.lambda_attn if args.mode == 'ral' else 0.0
+            alpha = args.lambda_attn if args.mode == 'cal' else 0.0
 
         best_val_f1 = 0.0
         patience_cnt = 0
