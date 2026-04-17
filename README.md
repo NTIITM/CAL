@@ -1,21 +1,13 @@
 # Contrastive Attention Learning (CAL) Framework
 
 > **Official implementation for reproducing the core model training results from:**  
-> *State-adaptive contrastive attention learning drives mechanistic decoupling in single-cell foundation models (MH-CAL)*
+> *Contrastive attention distribution learning drives mechanistic decoupling in single-cell foundation models*
 
 ---
 
 ## Overview
 
 Single-cell Foundation Models (scFMs) suffer from *attention collapse* — their attention heads converge to homogeneous distributions, losing cell-type discriminative capacity. The CAL framework injects **explicit structural guidance** (Eqs. 8–10 in the paper) into the feature representation dynamics of existing popular scFMs.
-
-Supported backbone models:
-
-| Model | Mode | Key feature |
-|-------|------|-------------|
-| **scGPT** | Macro-CAL | CLS-token attention contrastive loss |
-| **CellFM** | Macro-CAL / MH-CAL | Retention-weight contrastive loss |
-| **Geneformer** | MH-CAL + Orthogonal | Per-head contrastive + orthogonality regulariser |
 
 ---
 
