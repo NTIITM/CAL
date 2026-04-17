@@ -8,15 +8,7 @@ This directory holds per-dataset subdirectories, each containing:
 
 **Data files are excluded from git** (see `.gitignore`) to keep the repository lightweight.
 
----
 
-## Supported datasets
-
-| Dataset | Cells | Cell types | Used by |
-|---------|------:|:----------:|---------|
-| `hPancreas` | ~14 k | 13 | scGPT, CellFM |
-| `hBone` | ~11 k | 10 | scGPT, CellFM, Geneformer |
-| `MS` | ~25 k | 7 | CellFM |
 
 ---
 

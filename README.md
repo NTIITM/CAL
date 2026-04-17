@@ -94,14 +94,7 @@ bash run_mhcal.sh --model cellfm --dataset MS --mode baseline
 bash run_mhcal.sh --model scgpt --dataset hBone --mode mhcal --cuda 2 --epochs 80
 ```
 
-### Available `--mode` options
 
-| Mode | Description |
-|------|-------------|
-| `baseline` | Standard cross-entropy fine-tuning, no CAL |
-| `cal` | Original CAL (head-averaged attention contrastive) |
-| `mhcal` | **MH-CAL** — per-head contrastive loss (recommended) |
-| `mhcal_orth` | MH-CAL + head orthogonality regulariser (Eq. 10) |
 
 Results are saved to `results/result_{model}_{dataset}/{mode}/`:
 - `kfold_results.json` — per-fold F1 and accuracy
