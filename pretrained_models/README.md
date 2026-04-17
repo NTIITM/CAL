@@ -23,7 +23,7 @@ pretrained_models/scGPT_repo/scgpt/checkpoint/args.json
 pretrained_models/scGPT_repo/scgpt/checkpoint/vocab.json
 ```
 
-> Our experiment checkpoint will be available on Google Drive upon paper acceptance.
+> Our experiment checkpoint is available on the shared Google Drive folder: [CAL_OpenSource](https://drive.google.com/drive/folders/1OOwvNYclJXp76Anej2XMpE05W-qpYppX).
 
 ---
 
@@ -57,10 +57,10 @@ snapshot_download(
 pretrained_models/CellFM_weights/CellFM_80M_weight.pth
 ```
 
-Use `gdown` to download from Google Drive once the link is released:
+Use `gdown` to download from the Google Drive shared folder:
 ```bash
 pip install gdown
-gdown "https://drive.google.com/uc?id=<FILE_ID>" -O pretrained_models/CellFM_weights/CellFM_80M_weight.pth
+gdown --folder "https://drive.google.com/drive/folders/1OOwvNYclJXp76Anej2XMpE05W-qpYppX" -O pretrained_models/
 ```
 
 ---

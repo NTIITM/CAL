@@ -23,17 +23,16 @@ This directory holds per-dataset subdirectories, each containing:
 ## Data availability
 
 These datasets are derived from publicly available single-cell studies.
-The processed `.h5ad` files used in MH-CAL experiments are available via **Google Drive** (link to be released upon paper acceptance).
+The processed `.h5ad` files used in MH-CAL experiments are available via **Google Drive**: [CAL_OpenSource/data](https://drive.google.com/drive/folders/1OOwvNYclJXp76Anej2XMpE05W-qpYppX).
 
-To download with `gdown`:
+To download the whole data directory with `gdown`:
 ```bash
 pip install gdown
 
-# Example for hPancreas
-gdown "https://drive.google.com/uc?id=<FILE_ID>" -O data/hPancreas/hPancreas.h5ad
+gdown --folder "https://drive.google.com/drive/folders/1OOwvNYclJXp76Anej2XMpE05W-qpYppX" -O data/
 ```
 
-A one-click download script `scripts/download_data.sh` will be provided alongside the Google Drive link.
+
 
 ---
 

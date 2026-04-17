@@ -61,17 +61,17 @@ pip install -r requirements.txt
 Follow the instructions in [`pretrained_models/README.md`](pretrained_models/README.md) to download:
 - scGPT checkpoint (whole-human pre-trained)
 - Geneformer V2-316M weights (from HuggingFace)
-- CellFM 80M weights (Google Drive — link released upon paper acceptance)
+- CellFM 80M weights (Shared via [Google Drive](https://drive.google.com/drive/folders/1OOwvNYclJXp76Anej2XMpE05W-qpYppX))
 
 ### 4. Download datasets
 
 Follow the instructions in [`data/README.md`](data/README.md).
-The processed `.h5ad` files and Geneformer tokenised datasets will be shared via **Google Drive** upon paper acceptance.
+The processed `.h5ad` files and Geneformer tokenised datasets are shared via **Google Drive**: [CAL_OpenSource](https://drive.google.com/drive/folders/1OOwvNYclJXp76Anej2XMpE05W-qpYppX)
 
 ```bash
 pip install gdown
 # Example:
-gdown "https://drive.google.com/uc?id=<FILE_ID>" -O data/hPancreas/hPancreas.h5ad
+gdown --folder "https://drive.google.com/drive/folders/1OOwvNYclJXp76Anej2XMpE05W-qpYppX" -O data/
 ```
 
 ---
@@ -99,7 +99,7 @@ bash run_mhcal.sh --model scgpt --dataset hBone --mode mhcal --cuda 2 --epochs 8
 | Mode | Description |
 |------|-------------|
 | `baseline` | Standard cross-entropy fine-tuning, no CAL |
-| `ral` | Original RAL (head-averaged attention contrastive) |
+| `cal` | Original CAL (head-averaged attention contrastive) |
 | `mhcal` | **MH-CAL** — per-head contrastive loss (recommended) |
 | `mhcal_orth` | MH-CAL + head orthogonality regulariser (Eq. 10) |
 
