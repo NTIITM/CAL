@@ -1,0 +1,32 @@
+# ── Large data files ──────────────────────────────────────────────────────────
+*.h5ad
+*.h5
+*.csv
+*.rds
+*.npz
+*.arrow
+*foundation_ds/
+*geneformer_ds/
+
+# ── Model weights / checkpoints ───────────────────────────────────────────────
+*.pt
+*.pth
+*.ckpt
+*.pkl
+*.safetensors
+*.bin
+*.model
+pretrained_models/scGPT_repo/scgpt/checkpoint/best_model.pt
+pretrained_models/CellFM_weights/
+pretrained_models/Geneformer/Geneformer-V1-10M/model.safetensors
+pretrained_models/Geneformer/Geneformer-V1-10M/pytorch_model.bin
+
+# ── Outputs ───────────────────────────────────────────────────────────────────
+results/
+logs/
+*.log
+test.txt
+__pycache__/
+*.pyc
+.DS_Store
+
