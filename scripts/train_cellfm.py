@@ -43,9 +43,11 @@ def get_args():
     import argparse
     p = argparse.ArgumentParser()
     p.add_argument('--dataset',      type=str,   default='MS')
-    p.add_argument('--mode',         type=str,   default='baseline', choices=['baseline', 'cal', 'mhcal', 'mhcal_lora'])
+    p.add_argument('--mode',         type=str,   default='baseline', choices=['baseline', 'cal', 'mhcal', 'mhcal_lora', 'mhcal_orth'])
     p.add_argument('--cuda',         type=int,   default=0)
     p.add_argument('--lambda_attn',  type=float, default=0.5, help="CAL loss weight")
+    p.add_argument('--lambda_orth',  type=float, default=0.1, help="Orthogonality weight")
+    p.add_argument('--temperature',  type=float, default=0.1, help="Temperature for InfoNCE")
     p.add_argument('--epochs',       type=int,   default=10)
     p.add_argument('--batch_size',   type=int,   default=16)
     p.add_argument('--lr',           type=float, default=1e-4)
@@ -84,7 +86,7 @@ def train_epoch(model, loader, optimizer, scaler, criterion_cls, cal_loss_fn, de
                 cls_weights = weights[:, :, 0, 1:]          # (B, H, L-1)
                 cls_weights = F.softmax(cls_weights, dim=-1) # normalize per-head
                 
-                if mode in ('mhcal', 'mhcal_lora'):
+                if mode in ('mhcal', 'mhcal_lora', 'mhcal_orth'):
                     # Multi-Head independent contrastive loss
                     cal_loss = cal_loss_fn(cls_weights, feat, None)
                 else:
@@ -289,11 +291,14 @@ def main():
         scaler = GradScaler(init_scale=2**10, growth_interval=2000)
         criterion_cls = nn.CrossEntropyLoss()
         if args.mode in ('mhcal', 'mhcal_lora'):
-            cal_loss_fn = MultiHeadCALLoss(lambda_attn=1.0, temperature=0.1).to(device)
-            alpha = args.lambda_attn
+            cal_loss_fn = MultiHeadCALLoss(lambda_attn=args.lambda_attn, temperature=args.temperature).to(device)
+            alpha = 1.0
+        elif args.mode == 'mhcal_orth':
+            cal_loss_fn = MultiHeadCALLoss(lambda_attn=args.lambda_attn, lambda_orth=args.lambda_orth, temperature=args.temperature).to(device)
+            alpha = 1.0
         else:
-            cal_loss_fn = CALLoss(lambda_attn=1.0, temperature=0.1, use_class_balanced_queue=False).to(device)
-            alpha = args.lambda_attn if args.mode == 'cal' else 0.0
+            cal_loss_fn = CALLoss(lambda_attn=args.lambda_attn, temperature=args.temperature, use_class_balanced_queue=False).to(device)
+            alpha = 1.0 if args.mode == 'cal' else 0.0
 
         best_val_f1 = 0.0
         patience_cnt = 0
